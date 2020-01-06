@@ -8,36 +8,31 @@ class EventHandler
 {
     protected $msg;
 
-    public function __construct($msg)
+    public function handle($msg)
     {
-        $this->msg = $msg;
-    }
-
-    public function handle()
-    {
-        if ($this->msg['Event'] === 'subscribe') {
-            return $this->onSubscribe();
+        if ($msg['Event'] === 'subscribe') {
+            return $this->onSubscribe($msg);
         }
-        if ($this->msg['Event'] === 'CLICK' && $this->msg['EventKey'] === 'articles') {
-            return $this->onClickArticles();
+        if ($msg['Event'] === 'CLICK' && $msg['EventKey'] === 'recent-articles') {
+            return (new RecentArticlesEventHandler)->handle();
         }
         return 'event handled';
     }
 
-    public function onSubscribe()
+    public function onSubscribe($msg)
     {
         $user = User::firstOrCreate([
-            'openid' => $this->msg['FromUserName']
+            'openid' => $msg['FromUserName']
         ], [
-            'name' => '微信用户' . substr($this->msg['FromUserName'], 0, 5),
+            'name' => '微信用户' . substr($msg['FromUserName'], 0, 5),
         ]);
         return $user->name;
     }
 
-    public function onClickArticles()
+    public function onClickRecentArticles()
     {
         $articles = \App\Article::orderBy('id', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
         $str = '';
         foreach ($articles as $a) {

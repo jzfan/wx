@@ -5,6 +5,10 @@ namespace App\Wx;
 use App\Http\Controllers\Controller;
 use EasyWeChat\Factory;
 use App\Wx\Handlers;
+use EasyWeChat\Kernel\Messages\Article as MsgArticle;
+use EasyWeChat\Kernel\Messages\Text;
+use EasyWeChat\Kernel\Messages\News;
+use EasyWeChat\Kernel\Messages\NewsItem;
 
 class ServerController extends Controller
 {
@@ -25,7 +29,7 @@ class ServerController extends Controller
         $app->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'event':
-                    return (new Handlers\EventHandler($message))->handle();
+                    return (new Handlers\EventHandler)->handle($message);
                     break;
                 case 'text':
                     return Gzh::userInfo();
@@ -50,16 +54,24 @@ class ServerController extends Controller
     protected function menu()
     {
         return [
-            [
-                "type" => "click",
-                "name" => "文章推荐",
-                "key" => "articles"
+            "name"=>"文章推荐",
+            "sub_button"=>[
+            [	
+                "type"=>"click",
+                "name"=>"最新文章",
+                "key"=>"recent-articles"
+            ],
+             [
+                  "type"=>"click",
+                  "name"=>"历史文章",
+                  "key"=>"all-articles"
+             ],
             ],
             [
                 "type" => "click",
                 "name" => "个人中心",
                 "key" => "me"
             ]
-        ];
+        ];      
     }
 }
