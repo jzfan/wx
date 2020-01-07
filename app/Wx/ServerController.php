@@ -54,6 +54,7 @@ class ServerController extends Controller
     protected function menu()
     {
         return [
+<<<<<<< Updated upstream
             "name"=>"文章推荐",
             "sub_button"=>[
             [	
@@ -66,6 +67,20 @@ class ServerController extends Controller
                   "name"=>"历史文章",
                   "key"=>"all-articles"
              ],
+=======
+            "name" => "文章推荐",
+            "sub_button" => [
+                [
+                    "type" => "click",
+                    "name" => "最新文章",
+                    "key" => "recent-articles"
+                ],
+                [
+                    "type" => "view",
+                    "name" => "历史文章",
+                    "key" => "http://card.aa086.com/wx/articles"
+                ],
+>>>>>>> Stashed changes
             ],
             [
                 "type" => "click",
