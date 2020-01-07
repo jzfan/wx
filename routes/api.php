@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ArticlesResource;
+use App\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,10 @@ Route::namespace('Api')->group(function () {
 
 	Route::middleware(['auth:api', 'refresh'])->get('/user', function (Request $request) {
 	    return $request->user();
+	});
+
+	Route::get('/articles', function () {
+		return new ArticlesResource(Article::paginate());
 	});
 
 });

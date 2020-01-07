@@ -18,8 +18,15 @@ Route::redirect('/', '/admin');
 
 Route::namespace('\App\Wx')->prefix('wx')->group(function () {
     Route::any('server', 'ServerController@index');
-    Route::get('articles/list', 'ArticleController@list');
-    Route::resource('articles', 'ArticleController');
+    
+    Route::group(['middleware' => ['web']], function () {
+        Route::resource('articles', 'ArticleController');
+
+        Route::group(['middleware' => ['wechat.oauth:default,snsapi_userinfo']], function () {
+            Route::get('ucenter', 'UcenterController@index');
+        });
+    });
+
 });
 
 Route::group(['middleware' => ['web', 'wechat.oauth:default,snsapi_userinfo']], function () {

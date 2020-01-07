@@ -18,6 +18,10 @@ img {
 text-overflow: ellipsis;
 white-space: nowrap
 }
+.pagination {
+    margin-top: 1rem;
+    justify-content: center;
+}
 </style>
 </head>
 <body>

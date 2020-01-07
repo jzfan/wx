@@ -1,24 +1,26 @@
 {
     "button": [
         {
-            "name": "菜单", 
+            "name": "菜单",
             "sub_button": [
                 {
-                    "type": "click", 
-                    "name": "最新文章", 
+                    "type": "click",
+                    "name": "最新文章",
                     "key": "recent-articles"
-                }, 
+                },
                 {
-                    "type": "click", 
-                    "name": "历史文章", 
-                    "key": "all-articles"
+                    "type": "view",
+                    "name": "历史文章",
+                    "url": "http://card.aa086.com/wx/articles"
+
                 }
             ]
-        }, 
+        },
         {
-            "type": "click", 
-            "name": "个人中心", 
-            "key": "me"
+            "type": "view",
+            "name": "个人中心",
+            "url": "http://card.aa086.com/wx/ucenter"
+
         }
     ]
 }
