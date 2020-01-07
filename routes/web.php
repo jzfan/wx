@@ -18,6 +18,7 @@ Route::redirect('/', '/admin');
 
 Route::namespace('\App\Wx')->prefix('wx')->group(function () {
     Route::any('server', 'ServerController@index');
+    Route::get('articles/list', 'ArticleController@list');
     Route::resource('articles', 'ArticleController');
 });
 

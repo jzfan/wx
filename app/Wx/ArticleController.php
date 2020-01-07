@@ -15,7 +15,14 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::orderBy('id', 'desc')->paginate(10);
+        $articles = Article::orderBy('id', 'desc')->simplePaginate(16);
         return view('wx.articles', \compact('articles'));
+    }
+
+    public function list()
+    {
+        $page = request('page');
+        $articles = Article::orderBy('id', 'desc')->paginate($page, 16);
+        return $articles;
     }
 }
