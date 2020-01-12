@@ -7,6 +7,9 @@
         </h3>
     </div>
     <div class="card-body">
+    <div class='text-center'>
+    <img src="{{ $article->cover }}" class="img-fluid">
+    </div>
         <?php
     $Parsedown = new Parsedown();
     echo $Parsedown->text($article->content); 

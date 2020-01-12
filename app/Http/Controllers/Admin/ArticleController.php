@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Wx\Gzh;
 use App\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,10 +17,6 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        // $Parsedown = new \Parsedown();
-
-        // $article->conent = $Parsedown->text($article->content);
-
         return view('article.show', compact('article'));
     }
 
@@ -37,12 +34,16 @@ class ArticleController extends Controller
     {
         $data = $this->validate(request(), [
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'cover' => 'string|nullable '
         ]);
-        Article::create($data);
+        $article = Article::create($data);
+
+        $article->qrcode = Gzh::getForeverQrcode($article->id);
+        $article->save();
+
         flash()->success('操作成功');
-        return back();
-        // return redirect()->route('articles.index');
+        return redirect()->route('articles.index');
     }
 
     public function update(Article $article)

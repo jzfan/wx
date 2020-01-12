@@ -1,36 +1,32 @@
 <?php
 
-namespace App\Wx;
+namespace App\Wx\Controllers;
 
-use App\Http\Controllers\Controller;
-use EasyWeChat\Factory;
+use App\Wx\Gzh;
 use App\Wx\Handlers;
+use App\Http\Controllers\Controller;
+// use EasyWeChat\Kernel\Messages\Transfer;
+// use EasyWeChat\Kernel\Messages\Text;
 
 class ServerController extends Controller
 {
     public function index()
     {
-        $config = [
-            'app_id' => env('WECHAT_OFFICIAL_ACCOUNT_APPID'),
-            'secret' => env('WECHAT_OFFICIAL_ACCOUNT_SECRET'),
-            'token' => env('WECHAT_OFFICIAL_ACCOUNT_TOKEN'),
-            'response_type' => 'array',
-            //...
-        ];
-
-        $app = Factory::officialAccount($config);
+        $app = Gzh::app();
         // $app->menu->delete();
         // $app->menu->create($this->menu());
 
-        $app->server->push(function ($message) {
+        $app->server->push(function ($message) use ($app) {
             switch ($message['MsgType']) {
                 case 'event':
-                    return 33333;
+                    // return \json_encode($message);
                     return (new Handlers\EventHandler)->handle($message);
                     break;
                 case 'text':
-                    return Gzh::userInfo();
-                    // return '收到文字消息';
+                    $wx = Gzh::app()->user->get($message['FromUserName']);
+                    $kfMsg = '收到用户 ' . $wx['nickname'] . "留言： \n" . $message['Content'];
+                    $app->customer_service->message($kfMsg)->to(env('WECHAT_KF'))->send();
+                    return '已收到留言，客服人员处理中...';
                     break;
                 case 'link':
                     return '收到链接消息';
@@ -46,7 +42,6 @@ class ServerController extends Controller
 
         return $app->server->serve();
     }
-
 
     protected function menu()
     {
@@ -69,6 +64,6 @@ class ServerController extends Controller
                 "name" => "个人中心",
                 "url" => "http://card.aa086.com/wx/ucenter"
             ]
-        ];      
+        ];
     }
 }

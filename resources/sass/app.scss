@@ -17,8 +17,9 @@ img {
 }
 
 @import '/css/pikaday.css';
-@import '/css/iconfont.css';
+// @import '/css/iconfont.css';
 @import '~simplemde/dist/simplemde.min.css';
+@import '~dropzone/dist/basic.css';
 
 .navbar-laravel .nav-link {
     padding: 0

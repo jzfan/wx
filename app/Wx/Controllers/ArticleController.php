@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Wx;
+namespace App\Wx\Controllers;
 
-use App\User;
 use App\Article;
 
 class ArticleController extends BaseController
 {
     public function show(Article $article)
     {
-        // $aid = 
-        $user = $this->mapUser();
+        $uid = \request()->get('uid') ?? 1;
+        $user = $this->getUserByUid($uid);
         return view('wx.article', \compact('article', 'user'));
     }
 

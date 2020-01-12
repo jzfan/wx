@@ -1,36 +1,28 @@
 <?php
 
-namespace App\Wx;
+namespace App\Wx\Controllers;
 
-use App\Http\Controllers\Controller;
-use EasyWeChat\Factory;
+use App\Wx\Gzh;
 use App\Wx\Handlers;
+use App\Http\Controllers\Controller;
+use EasyWeChat\Kernel\Messages\Transfer;
 
-class ServerController extends Controller
+class Server extends Controller
 {
     public function index()
     {
-        $config = [
-            'app_id' => env('WECHAT_OFFICIAL_ACCOUNT_APPID'),
-            'secret' => env('WECHAT_OFFICIAL_ACCOUNT_SECRET'),
-            'token' => env('WECHAT_OFFICIAL_ACCOUNT_TOKEN'),
-            'response_type' => 'array',
-            //...
-        ];
-
-        $app = Factory::officialAccount($config);
+        $app = Gzh::app();
         // $app->menu->delete();
         // $app->menu->create($this->menu());
 
         $app->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'event':
-                    return 33333;
                     return (new Handlers\EventHandler)->handle($message);
                     break;
                 case 'text':
-                    return Gzh::userInfo();
-                    // return '收到文字消息';
+                    return 'received';
+                    // return new Transfer();
                     break;
                 case 'link':
                     return '收到链接消息';
@@ -69,6 +61,6 @@ class ServerController extends Controller
                 "name" => "个人中心",
                 "url" => "http://card.aa086.com/wx/ucenter"
             ]
-        ];      
+        ];
     }
 }

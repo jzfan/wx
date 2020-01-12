@@ -11,19 +11,16 @@
                 <input type="text" class="form-control" name='name' value="{{ old('name', $user->name )}}">
             </div>
             <div class="form-group">
-                <label><i class="iconfont icon-email"></i>Email</label>
-                <input type="text" class="form-control" name='email' value="{{ old('email', $user->email )}}">
+                <label><i class="iconfont icon-user"></i>手机号</label>
+                <input type="text" class="form-control" name='mobile' value="{{ old('mobile', $user->mobile )}}">
             </div>
             <div class="form-group">
-                <label><i class="iconfont icon-lock"></i>角色</label>
-                <select class="form-control" name='role'>
-                    @foreach (\App\User::ROLES as $k => $v)
-                    <option value="{{ $k }}" @if ($v===$user->role)
-                        selected
-                        @endif
-                        >{{ $v }}</option>
-                    @endforeach
-                </select>
+                <label><i class="iconfont icon-user"></i>微信号</label>
+                <input type="text" class="form-control" name='wx' value="{{ old('wx', $user->wx )}}">
+            </div>
+            <div class="form-group">
+                <label><i class="iconfont icon-email"></i>Email</label>
+                <input type="text" class="form-control" name='email' value="{{ old('email', $user->email )}}">
             </div>
             @include('layouts.submit-button')
         </form>

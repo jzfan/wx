@@ -9,13 +9,14 @@ use EasyWeChat\Kernel\Messages\NewsItem;
 class RecentArticlesEventHandler
 {
     public function handle()
-    {  
+    {
         $articles = Article::orderBy('id', 'desc')
-        ->limit(8)
-        ->get();
+            ->limit(8)
+            ->get();
         $str = '';
+        $host = env('APP_URL');
         foreach ($articles as $a) {
-            $str .= "<a href='http://card.aa086.com/wx/articles/$a->id'>$a->title</a>\n\n";
+            $str .= "<a href='$host/wx/articles/$a->id'>$a->title</a>\n\n";
         }
         return $str;
 
@@ -28,13 +29,9 @@ class RecentArticlesEventHandler
         //     ]),
         // ];
 
-    
+
         // $news = new News($items);
         // return $news;
 
     }
-
-
-
-
 }

@@ -10,6 +10,7 @@ require('moment');
 window.Simplemde = require('simplemde');
 window.Pikaday = require('pikaday');
 window.wangEditor = require('wangeditor');
+window.Dropzone = require('dropzone');
 // window.Vue = require('vue');
 
 /**

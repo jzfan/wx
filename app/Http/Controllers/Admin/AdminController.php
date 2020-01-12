@@ -2,67 +2,60 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Admin;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->paginate(10);
-        return view('user.index', compact('users'));
+        $users = Admin::orderBy('id', 'desc')->paginate(10);
+        return view('admin.index', compact('users'));
     }
 
-    public function show(User $user)
+    public function show(Admin $admin)
     {
-        return $user;
+        return $admin;
     }
 
-    public function edit(User $user)
+    public function edit(Admin $admin)
     {
-        return view('user.edit', compact('user'));
+        return view('admin.edit', compact('admin'));
     }
 
     public function create()
     {
-        return view('user.create');
+        return view('admin.create');
     }
 
     public function store()
     {
         $data = $this->checkInput();
-        User::create($data);
+        Admin::create($data);
         flash()->success('操作成功');
         return back();
     }
 
-    public function update(User $user)
+    public function update(Admin $admin)
     {
         $data = $this->checkInput([
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($user->id),
+                Rule::unique('admins')->ignore($admin->id),
             ],
         ]);
-        $user->update($data);
+        $admin->update($data);
         flash()->success('操作成功');
         return back();
-    }
-
-    public function destroy(User $user)
-    {
-        if ($user->delete()) {
-            return 'ok';
-        }
     }
 
     protected function checkInput($rule = [])
     {
         $rule = array_merge([
             'name' => 'required|alphaDash|between:2, 10',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:admins',
             'password' => 'alphaDash|between:6, 255',
         ], $rule);
 

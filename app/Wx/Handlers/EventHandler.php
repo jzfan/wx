@@ -10,6 +10,9 @@ class EventHandler
 
     public function handle($msg)
     {
+        if ($msg['Event'] === 'SCAN') {
+            return (new ScanArticleEventHandler)->handle($msg);
+        }
         if ($msg['Event'] === 'subscribe') {
             return $this->onSubscribe($msg);
         }
@@ -19,17 +22,20 @@ class EventHandler
         return 'event handled';
     }
 
-    public function onSubscribe($msg)
+    protected function onSubscribe($msg)
     {
         $user = User::firstOrCreate([
             'openid' => $msg['FromUserName']
         ], [
             'name' => '微信用户' . substr($msg['FromUserName'], 0, 5),
         ]);
-        return $user->name;
+        if (isset($msg['EventKey'])) {
+            return $this->onScene($msg);
+        }
+        return $user->name . ', 欢迎您的关注!';
     }
 
-    public function onClickRecentArticles()
+    protected function onClickRecentArticles()
     {
         $articles = \App\Article::orderBy('id', 'desc')
             ->limit(5)
@@ -39,5 +45,11 @@ class EventHandler
             $str .= "<a href='http://card.aa086.com/wx/articles/$a->id'>$a->title</a>\n\n";
         }
         return $str;
+    }
+
+    protected function onScene($msg)
+    {
+        session('scene', $msg['EventKey']);
+        return $msg['EventKey'];
     }
 }

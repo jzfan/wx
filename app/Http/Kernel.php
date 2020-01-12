@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'refresh' => \App\Http\Middleware\TokenRefreshMiddleware::class,
         'wechat.oauth' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
+        'mock.oauth' => \App\Http\Middleware\MockWxauth::class,
     ];
 
     /**

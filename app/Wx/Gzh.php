@@ -18,11 +18,16 @@ class Gzh
         return Factory::officialAccount($config);
     }
 
-    public static function userInfo()
+    public static function getForeverQrcode($id)
     {
-        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
-        return $user['id'] . '22222';
-        $userInfo = self::app()->user->get($user['id']);
-        dd($userInfo);
+        $app = self::app();
+
+        $result = $app->qrcode->forever($id);
+        $url = $app->qrcode->url($result['ticket']);
+        $content = file_get_contents($url); // 得到二进制图片内容
+        $path = "/qrcode/$id.jpg";
+        file_put_contents(\public_path($path), $content); // 写入文件
+
+        return $path;
     }
 }

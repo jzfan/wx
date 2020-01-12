@@ -4,13 +4,12 @@ namespace App\Wx;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UcenterController extends Controller
+class UcenterController extends BaseController
 {
     public function index(Request $request)
     {
-       $user = $request->session()->get('wechat.oauth_user.default');
+       $user = $this->mapUser();
     //    var_dump($wx);exit;
     //    $user = User::firstOrCreate([
     //         'openid' => $wx->getId()

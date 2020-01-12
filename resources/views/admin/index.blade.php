@@ -18,8 +18,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">用户</th>
-                    <th scope="col">手机号</th>
-                    <th scope="col">微信号</th>
+                    <th scope="col">角色</th>
                     <th scope="col">Email</th>
                     <th scope="col">创建于</th>
                     <th scope="col">操作</th>
@@ -30,14 +29,12 @@
                 <tr data-id='{{ $user->id }}' data-resource='users'>
                     <th scope="row">{{ $user->id }}</th>
                     <td><img src="/img/{{ $user->avatar }}" width="44px" class="rounded-circle" /> {{ $user->name }}</td>
-                    <td>{{ $user->mobile }}</td>
-                    <td>{{ $user->wx }}</td>
+                    <td>{{ $user->role }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->created_at->diffForHumans() }}</td>
                     <td>
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick='window.location="/admin/users/{{ $user->id }}/edit"'>
                             <i class="iconfont icon-edit"></i>编辑</button>
-                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete"><i class="iconfont icon-delete"></i>删除</button>
                     </td>
                 </tr>
                 @endforeach

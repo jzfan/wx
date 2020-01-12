@@ -13,7 +13,7 @@
   <ul class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-center">
     名片
-    <a href='/users/{{ $user->id }}/edit'  class="btn btn-primary btn-sm rounded" type="submit">编辑</a>
+    <a href='/wx/card/edit'  class="btn btn-primary btn-sm rounded" type="submit">编辑</a>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     Dapibus ac facilisis in

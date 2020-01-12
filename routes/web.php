@@ -16,21 +16,22 @@
 // });
 Route::redirect('/', '/admin');
 
-Route::namespace('\App\Wx')->prefix('wx')->group(function () {
-    Route::any('server', 'ServerController@index');
-    
+Route::namespace('\App\Wx\Controllers')->prefix('wx')->group(function () {
+
     Route::group(['middleware' => ['web']], function () {
-        Route::resource('articles', 'ArticleController');
+        Route::any('server', 'ServerController@index');
 
         Route::group(['middleware' => ['wechat.oauth:default,snsapi_userinfo']], function () {
+            Route::resource('articles', 'ArticleController');
             Route::get('ucenter', 'UcenterController@index');
+            Route::get('card/edit', 'CardController@edit');
+            Route::put('card', 'CardController@update');
         });
     });
-
 });
 
-Route::group(['middleware' => ['web', 'wechat.oauth:default,snsapi_userinfo']], function () {
-    Route::get('/user', '\App\Wx\ServerController@user');
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/img-upload', 'UploaderController@store');
 });
 
 Auth::routes(['register' => false]);
@@ -46,5 +47,6 @@ Route::middleware(['auth', 'admin'])
         Route::get('chart/users', 'ChartController@users');
         Route::get('export/users', 'ExportController@users');
         Route::resource('users', 'UserController');
+        Route::resource('admins', 'AdminController');
         Route::resource('articles', 'ArticleController');
     });

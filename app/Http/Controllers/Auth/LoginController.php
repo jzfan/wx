@@ -32,6 +32,6 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return auth()->user()->isAdmin() ? '/admin' : '/news';
+        return  '/admin';
     }
 }
