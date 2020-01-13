@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile')->unique()->nullable();
             $table->string('wx')->unique()->nullable();
             $table->text('bio')->nullable();
+            $table->string('qrcode')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('avatar')->nullable();
             $table->char('api_token', 100)->nullable()->unique();

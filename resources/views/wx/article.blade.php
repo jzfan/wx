@@ -38,27 +38,33 @@
     <div id='card' class="mt-5 pt-5 pb-2 alert alert-danger position-relative">
         <img src="{{ $user->avatar }}" class="position-absolute avatar-top w-20 rounded-circle">
         <p class='text-center'>{{ $user->name }}</p>
-        <div class='text-center  d-flex justify-content-between'>
+        <div class='text-center px-4 d-flex justify-content-between'>
             <a href="tel:{{ $user->mobile }}" class='btn btn-light btn-sm  rounded-pill'>
                 <i class='mr-1 text-danger iconfont icon-mobilephone'></i>打电话
             </a>
+            @if ($user->qrcode)
+            <button type="button" data-toggle="modal" data-target="#addWx" class="btn btn-light btn-sm  rounded-pill">
+              <i class='mr-1 text-danger iconfont icon-wx'></i>加微信
+            </button>
+            @else
             <a href="/wx/card/edit" class='btn btn-light btn-sm  rounded-pill'>
                 <i class='mr-1 text-danger iconfont icon-wx'></i>加微信
             </a>
+            @endif
         </div>
     </div>
     </div>
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="position-fixed inset-x-0 bottom-0 btn btn-danger btn-lg btn-block">免费换成我的名片</button>
+<button type="button" data-toggle="modal" data-target="#freeCard" class="position-fixed inset-x-0 bottom-0 btn btn-danger btn-lg btn-block">免费换成我的名片</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="freeCard" tabindex="-1" role="dialog" aria-labelledby="freeCardTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">更换成功</h5>
+        <h5 class="modal-title" id="freeCardTitle">更换成功</h5>
         <p class='text-center'>扫码领取您的名片文章</p>
       </div>
       <div class="modal-body">
@@ -71,4 +77,20 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="addWx" tabindex="-1" role="dialog" aria-labelledby="addWxTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addWxTitle">{{ $user->name }}</h5>
+      </div>
+      <div class="modal-body">
+        <img src="{{ $user->qrcode }}" alt="">
+      </div>
+      <div class="modal-footer">
+        <p class='text-center'>长按扫二维码，加微信好友</p>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

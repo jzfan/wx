@@ -3,7 +3,7 @@
 <div class="card">
     <div class="card-header"><i class="iconfont icon-plus"></i>新建文章</div>
     <div class="card-body">
-    <form action="/img-upload"
+    <form action="/cover-upload"
       class="dropzone form-group border p-4"
       id="my-awesome-dropzone">
        <i class="iconfont icon-image"></i> 上传封面

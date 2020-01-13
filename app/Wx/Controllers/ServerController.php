@@ -26,13 +26,13 @@ class ServerController extends Controller
                 case 'text':
                     // Log::info(\json_encode($kf['kf_list']));
                     // return \json_encode($kf['kf_list'][0]);
-                    // return new Transfer();
                     $wx = Gzh::app()->user->get($message['FromUserName']);
                     $kfMsg = '收到用户 ' . $wx['nickname'] . "留言： \n" . $message['Content'];
                     // $kf = $app->customer_service->list();
                     // foreach ($kf['kf_list'] as $kefu) {
                     // }
                     $app->customer_service->message($kfMsg)->to(env('WECHAT_KF'))->send();
+                    return new Transfer();
                     // return '已收到留言，客服人员处理中...';
                     break;
                 case 'link':

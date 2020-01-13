@@ -3,10 +3,10 @@
 <div class="card">
     <div class="card-header">
         <i class="iconfont icon-unorderedlist"></i>用户列表
-        <button type="button" class="btn btn-outline-secondary btn-sm float-right" onclick='window.location="/admin/users/create"'>
+        <!-- <button type="button" class="btn btn-outline-secondary btn-sm float-right" onclick='window.location="/admin/users/create"'>
             <i class="iconfont icon-plus"></i>
             新增
-        </button>
+        </button> -->
         <button type="button" class="btn btn-outline-secondary btn-sm float-right mr-2" onclick='window.location="/admin/export/users"'>
             <i class="iconfont icon-file-excel"></i>
             导出

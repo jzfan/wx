@@ -31,7 +31,8 @@ Route::namespace('\App\Wx\Controllers')->prefix('wx')->group(function () {
 });
 
 Route::group(['middleware' => ['web']], function () {
-    Route::post('/img-upload', 'UploaderController@store');
+    Route::post('/cover-upload', 'UploaderController@cover');
+    Route::post('/user-qrcode-upload', 'UploaderController@userQrcode');
 });
 
 Auth::routes(['register' => false]);

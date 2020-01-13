@@ -10,6 +10,10 @@
                 <input type="text" class="form-control" name='name' value="{{ old('name')}}" required>
             </div>
             <div class="form-group">
+                <label><i class="iconfont icon-user"></i>手机号</label>
+                <input type="text" class="form-control" name='mobile' value="{{ old('mobile')}}" required>
+            </div>
+            <div class="form-group">
                 <label><i class="iconfont icon-email"></i>Email</label>
                 <input type="text" class="form-control" name='email' value="{{ old('email')}}" required>
             </div>
@@ -17,14 +21,14 @@
                 <label><i class="iconfont icon-lock"></i>密码</label>
                 <input type="password" class="form-control" name='password' value="{{ old('password')}}" required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>角色</label>
                 <select class="form-control" name='role'>
                     @foreach (\App\User::ROLES as $k => $v)
                     <option value="{{ $k }}">{{ $v }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> -->
             @include('layouts.submit-button')
         </form>
     </div>

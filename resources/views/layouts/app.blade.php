@@ -10,6 +10,7 @@
     <!-- Fonts -->
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="//at.alicdn.com/t/font_1121909_sagqkpomk6.css" rel="stylesheet">
     <style>
     </style>
 </head>
