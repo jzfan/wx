@@ -4,13 +4,6 @@
 {{ $article->title }}
 @endsection
 @section('content')
-<style>
-.avatar-top {
-    left: 50%;
-    top: 0;
-    transform: translate(-50%, -50%);
-}
-</style>
 <div class="card pb-5">
     <div class="card-body">
         <h3 class="card-title text-center">
@@ -36,7 +29,9 @@
     ?>
     </div>
     <div id='card' class="mt-5 pt-5 pb-2 alert alert-danger position-relative">
-        <img src="{{ $user->avatar }}" class="position-absolute avatar-top w-20 rounded-circle">
+        <div data-toggle="modal" data-target="#profile" class="position-absolute avatar-top w-20">
+            <img src="{{ $user->avatar }}" class="w-full rounded-circle">
+        </div>
         <p class='text-center'>{{ $user->name }}</p>
         <div class='text-center px-4 d-flex justify-content-between'>
             <a href="tel:{{ $user->mobile }}" class='btn btn-light btn-sm  rounded-pill'>
@@ -89,6 +84,43 @@
       </div>
       <div class="modal-footer">
         <p class='text-center'>长按扫二维码，加微信好友</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="profileTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileTitle">
+            <div  class="position-absolute avatar-top w-20">
+                <img src="{{ $user->avatar }}" class="w-full rounded-circle">
+            </div>
+            <span>
+                {{ $user->name }}
+            </span>
+        </h5>
+      </div>
+      <div class="modal-body">
+          <dl class="row">
+             <dt class="col-3">微信</dt>
+             <dd class="col-9">{{ $user->wx }}</dd>
+
+             <dt class="col-3">手机</dt>
+             <dd class="col-9">{{ $user->mobile }}</dd>
+
+             <dt class="col-3">邮箱</dt>
+             <dd class="col-9">{{ $user->email }}</dd>
+
+             <dt class="col-3">简介</dt>
+             <dd class="col-9">{{ $user->bio }}</dd>
+
+             <dt class="col-3">注册于</dt>
+             <dd class="col-9">{{ $user->created_at->diffForHumans() }}</dd>
+          </dl>
       </div>
     </div>
   </div>

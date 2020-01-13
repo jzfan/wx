@@ -37,7 +37,11 @@ inset-x-0
 .bottom-0 {
     bottom: 0;
 }
-
+.avatar-top {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+}
 </style>
 </head>
 <body>
