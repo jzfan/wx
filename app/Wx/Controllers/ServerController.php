@@ -4,8 +4,9 @@ namespace App\Wx\Controllers;
 
 use App\Wx\Gzh;
 use App\Wx\Handlers;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-// use EasyWeChat\Kernel\Messages\Transfer;
+use EasyWeChat\Kernel\Messages\Transfer;
 // use EasyWeChat\Kernel\Messages\Text;
 
 class ServerController extends Controller
@@ -14,7 +15,7 @@ class ServerController extends Controller
     {
         $app = Gzh::app();
         // $app->menu->delete();
-        // $app->menu->create($this->menu());
+         $app->menu->create($this->menu());
 
         $app->server->push(function ($message) use ($app) {
             switch ($message['MsgType']) {
@@ -23,10 +24,16 @@ class ServerController extends Controller
                     return (new Handlers\EventHandler)->handle($message);
                     break;
                 case 'text':
+                    // Log::info(\json_encode($kf['kf_list']));
+                    // return \json_encode($kf['kf_list'][0]);
+                    // return new Transfer();
                     $wx = Gzh::app()->user->get($message['FromUserName']);
                     $kfMsg = '收到用户 ' . $wx['nickname'] . "留言： \n" . $message['Content'];
+                    // $kf = $app->customer_service->list();
+                    // foreach ($kf['kf_list'] as $kefu) {
+                    // }
                     $app->customer_service->message($kfMsg)->to(env('WECHAT_KF'))->send();
-                    return '已收到留言，客服人员处理中...';
+                    // return '已收到留言，客服人员处理中...';
                     break;
                 case 'link':
                     return '收到链接消息';

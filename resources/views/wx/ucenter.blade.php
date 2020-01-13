@@ -15,14 +15,6 @@
     名片
     <a href='/wx/card/edit'  class="btn btn-primary btn-sm rounded" type="submit">编辑</a>
   </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Dapibus ac facilisis in
-    <span class="badge badge-primary badge-pill">2</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Morbi leo risus
-    <span class="badge badge-primary badge-pill">1</span>
-  </li>
 </ul>
 </div>
 @endsection
