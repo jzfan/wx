@@ -34,7 +34,7 @@ class UserController extends Controller
         $data = $this->checkInput();
         User::create($data);
         flash()->success('操作成功');
-        return back();
+        return redirect('/admin/users');
     }
 
     public function update(User $user)
@@ -46,9 +46,10 @@ class UserController extends Controller
                 Rule::unique('users')->ignore($user->id),
             ],
         ]);
+
         $user->update($data);
         flash()->success('操作成功');
-        return back();
+        return redirect('/admin/users');
     }
 
     public function destroy(User $user)
@@ -62,7 +63,9 @@ class UserController extends Controller
     {
         $rule = array_merge([
             'name' => 'required|alphaDash|between:2, 10',
-            'email' => 'required|email|unique:users',
+            'email' => 'email|unique:users',
+            'role' => 'string',
+            'mobile' => 'numeric',
             'password' => 'alphaDash|between:6, 255',
         ], $rule);
 

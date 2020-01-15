@@ -20,7 +20,7 @@
                     <th scope="col">用户</th>
                     <th scope="col">手机号</th>
                     <th scope="col">微信号</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">角色</th>
                     <th scope="col">创建于</th>
                     <th scope="col">操作</th>
                 </tr>
@@ -29,10 +29,20 @@
                 @foreach ($users as $user)
                 <tr data-id='{{ $user->id }}' data-resource='users'>
                     <th scope="row">{{ $user->id }}</th>
-                    <td><img src="/img/{{ $user->avatar }}" width="44px" class="rounded-circle" /> {{ $user->name }}</td>
+                    <td>
+                    <!-- <img src="/img/{{ $user->avatar }}" width="44px" class="rounded-circle" />  -->
+                    {{ $user->name }}
+                    </td>
                     <td>{{ $user->mobile }}</td>
                     <td>{{ $user->wx }}</td>
-                    <td>{{ $user->email }}</td>
+                    <td>
+                        @if ($user->role === 'user')
+                            <span class="badge badge-pill badge-secondary">用户</span>
+                        @endif
+                        @if ($user->role === 'kefu')
+                            <span class="badge badge-pill badge-primary">客服</span>
+                        @endif
+                    </td>
                     <td>{{ $user->created_at->diffForHumans() }}</td>
                     <td>
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick='window.location="/admin/users/{{ $user->id }}/edit"'>

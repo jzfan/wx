@@ -2,9 +2,10 @@
 
 namespace App\Wx\Controllers;
 
+use App\User;
 use App\Wx\Gzh;
 use App\Wx\Handlers;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use EasyWeChat\Kernel\Messages\Transfer;
 // use EasyWeChat\Kernel\Messages\Text;
@@ -24,14 +25,12 @@ class ServerController extends Controller
                     return (new Handlers\EventHandler)->handle($message);
                     break;
                 case 'text':
-                    // Log::info(\json_encode($kf['kf_list']));
-                    // return \json_encode($kf['kf_list'][0]);
-                    $wx = Gzh::app()->user->get($message['FromUserName']);
+                    $wx = $app->user->get($message['FromUserName']);
                     $kfMsg = '收到用户 ' . $wx['nickname'] . "留言： \n" . $message['Content'];
-                    // $kf = $app->customer_service->list();
-                    // foreach ($kf['kf_list'] as $kefu) {
-                    // }
-                    $app->customer_service->message($kfMsg)->to(env('WECHAT_KF'))->send();
+                    $kfs = User::where(['role' => 'kefu'])->pluck('openid');
+                    foreach ($kfs as $kf) {
+                        $app->customer_service->message($kfMsg)->to($kf)->send();
+                    }
                     return new Transfer();
                     // return '已收到留言，客服人员处理中...';
                     break;
