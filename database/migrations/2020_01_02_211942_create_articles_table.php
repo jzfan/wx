@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('qrcode')->default('');
             $table->text('content');
+            $table->unsignedInterge('view')->default(0);
             $table->timestamps();
         });
     }

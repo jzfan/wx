@@ -21,6 +21,11 @@
             "name": "个人中心",
             "url": "http://card.aa086.com/wx/ucenter"
 
+        },
+        {
+            "type": "click",
+            "name": "人工服务",
+            "key": "manual-service"
         }
     ]
 }

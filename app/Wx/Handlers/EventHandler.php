@@ -3,6 +3,7 @@
 namespace App\Wx\Handlers;
 
 use App\User;
+use App\Wx\Gzh;
 
 class EventHandler
 {
@@ -19,15 +20,21 @@ class EventHandler
         if ($msg['Event'] === 'CLICK' && $msg['EventKey'] === 'recent-articles') {
             return (new RecentArticlesEventHandler)->handle();
         }
+        if ($msg['Event'] === 'CLICK' && $msg['EventKey'] === 'manual-service') {
+            return '您好，请直接输入您的问题，我们会有客服人员给您解答';
+        }
         return 'event handled';
     }
 
     protected function onSubscribe($msg)
     {
+        $wxUser = Gzh::app()->user->get($msg['FromUserName']);
+        // return \json_encode($wxUser);
         $user = User::firstOrCreate([
             'openid' => $msg['FromUserName']
         ], [
-            'name' => '微信用户' . substr($msg['FromUserName'], 0, 5),
+            'name' => $wxUser['nickname'],
+            'avatar' => $wxUser['headimgurl'],
         ]);
         if (isset($msg['EventKey'])) {
             return $this->onScene($msg);

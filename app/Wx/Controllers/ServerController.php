@@ -16,7 +16,7 @@ class ServerController extends Controller
     {
         $app = Gzh::app();
         // $app->menu->delete();
-         $app->menu->create($this->menu());
+        $app->menu->create($this->menu());
 
         $app->server->push(function ($message) use ($app) {
             switch ($message['MsgType']) {
@@ -69,6 +69,11 @@ class ServerController extends Controller
                 "type" => "view",
                 "name" => "个人中心",
                 "url" => "http://card.aa086.com/wx/ucenter"
+            ],
+            [
+                "type" => "click",
+                "name" => "人工服务",
+                "key" => "manual-service"
             ]
         ];
     }

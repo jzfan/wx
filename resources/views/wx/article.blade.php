@@ -11,7 +11,10 @@
             {{ $article->title }}
             </p>
         </h3>
-        <h6 class="card-subtitle my-2 text-muted text-right">{{ $article->created_at->diffForHumans() }}</h6>
+        <h6 class="card-subtitle my-2 text-muted text-right">
+            {{ $article->view }}次阅读 &nbsp;&nbsp;&nbsp;&nbsp;
+            发表于{{ $article->created_at->diffForHumans() }}
+        </h6>
         <div class="alert alert-secondary">
             <div class="container d-flex align-items-center">
                 <img src="{{ $user->avatar }}" class="w-25 p-2 rounded-circle">
